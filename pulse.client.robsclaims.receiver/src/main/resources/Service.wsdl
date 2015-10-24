@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.robsclaims.com/schema/supplierintegration" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.robsclaims.com/schema/supplierintegration">
+<types>
+<s:schema elementFormDefault="qualified" targetNamespace="http://www.robsclaims.com/schema/supplierintegration">
+<s:element name="ClaimFNOL">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="claim" type="tns:Claim" />
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ClaimFNOLResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ClaimFNOL" type="s:int" />
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:complexType name="Claim">
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="claimReference" type="s:string" />
+<s:element minOccurs="1" maxOccurs="1" name="customerName" type="s:string" />
+<s:element minOccurs="1" maxOccurs="1" name="customerEmail" type="s:string" />
+</s:sequence>
+</s:complexType>
+</s:schema></types><message name="ClaimFNOLSoapIn">
+<part name="parameters" element="tns:ClaimFNOL" />
+</message>
+<message name="ClaimFNOLSoapOut">
+<part name="parameters" element="tns:ClaimFNOLResponse" />
+</message>
+<portType name="SupplierIntegrationServiceSoap">
+<operation name="ClaimFNOL">
+<input message="tns:ClaimFNOLSoapIn" />
+<output message="tns:ClaimFNOLSoapOut" />
+</operation>
+</portType>
+<binding name="SupplierIntegrationServiceSoap" type="tns:SupplierIntegrationServiceSoap">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+<operation name="ClaimFNOL">
+<soap:operation soapAction="http://www.robsclaims.com/schema/supplierintegration/ClaimFNOL" style="document" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+</binding>
+<service name="SupplierIntegrationService">
+<port name="SupplierIntegrationServiceSoap" binding="tns:SupplierIntegrationServiceSoap">
+<soap:address location="###SERVER_ADDRESS###SupplierIntegrationService" />
+</port>
+</service>
+</definitions>
